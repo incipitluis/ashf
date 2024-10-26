@@ -19,6 +19,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.35.3",
+    "html2pdf.js": "^0.10.2",
     "lucide-react": "^0.453.0",
     "next": "15.0.1",
     "pdfkit": "^0.15.0",
