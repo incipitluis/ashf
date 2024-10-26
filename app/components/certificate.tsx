@@ -43,10 +43,20 @@ export const Certificate: React.FC<CertificateProps> = ({
         Certifico que, tras recibir los informes favorables correspondientes, la
         Revista Anales del Seminario de Historia de la Filosofía, ISSN:
         1998-2564, ha decidido con fecha {date} ACEPTAR para su publicación el
-        siguiente estudio de {autor}:
+        siguiente estudio de{" "}
+        <span className="font-bold" data-field="autor">
+          {autor}
+        </span>
+        :
       </p>
       <p className="text-xl mb-8">
-        {articulo}, {year}
+        <span className="font-bold" data-field="titulo">
+          {articulo}
+        </span>
+        ,{" "}
+        <span className="font-bold" data-field="year">
+          {year}
+        </span>
       </p>
       <p className="text-xl mb-8">
         La Revista Anales del Seminario de Historia de la Filosofía es una

@@ -18,6 +18,10 @@ import { Input } from "@/components/ui/input";
 import { createCertificate } from "../utils/create-certificate";
 import { Certificate } from "./certificate";
 
+import { updateArticleStatus } from "../actions";
+import { SelectArticle } from "@/db/schema";
+import { getData } from "../data";
+
 const formSchema = z.object({
   autor: z.string().min(2, {
     message: "El nombre del autor debe tener al menos 2 caracteres.",
@@ -35,6 +39,7 @@ type FormData = z.infer<typeof formSchema>;
 export function CertificateForm() {
   const [showDownload, setShowDownload] = useState(false);
   const [formData, setFormData] = useState<FormData | null>(null);
+  const [id, setId] = useState<string | null>(null);
   const certificateRef = useRef<HTMLDivElement>(null);
 
   console.log("Rendering CertificateForm"); // Debug log
@@ -48,16 +53,97 @@ export function CertificateForm() {
     },
   });
 
-  const handleClick = async () => {
-    if (certificateRef.current) {
-      await createCertificate(certificateRef.current);
+  async function checkExistingArticle(data: SelectArticle[]) {
+    if (data.length > 0) {
+      return true;
     }
+    return false;
+  }
+
+  const handleClick = async () => {
+    console.log("handleClick iniciado");
+
+    if (!certificateRef.current) {
+      console.log("certificateRef.current es null");
+      return;
+    }
+
+    const autorElement = certificateRef.current.querySelector(
+      '[data-field="autor"]'
+    );
+    const tituloElement = certificateRef.current.querySelector(
+      '[data-field="titulo"]'
+    );
+    const yearElement = certificateRef.current.querySelector(
+      '[data-field="year"]'
+    );
+
+    console.log("Elementos encontrados:", {
+      autorElement,
+      tituloElement,
+      yearElement,
+    });
+
+    if (!autorElement || !tituloElement || !yearElement) {
+      console.log("Uno o más elementos no fueron encontrados");
+      return;
+    }
+
+    const autor = autorElement.textContent || "";
+    const titulo = tituloElement.textContent || "";
+    const year = parseInt(yearElement.textContent || "0", 10);
+
+    console.log("Datos extraídos del DOM:", { autor, titulo, year });
+
+    const data = await getData(autor, titulo, year);
+    console.log("Datos obtenidos de getData:", data);
+
+    const isExistingArticle = await checkExistingArticle(data);
+    console.log("¿El artículo existe?", isExistingArticle);
+
+    if (!isExistingArticle) {
+      console.log("El artículo no existe en la base de datos");
+      alert("El artículo no existe en la base de datos");
+      return;
+    }
+
+    console.log("Iniciando creación del certificado");
+    await createCertificate(certificateRef.current);
+    console.log("Certificado creado");
+
+    console.log("Actualizando estado del artículo");
+    await updateArticleStatus(data[0].id);
+    console.log("Estado del artículo actualizado");
+
+    console.log("handleClick completado");
   };
 
-  function onSubmit(values: FormData) {
-    console.log("Form submitted with values:", values); // Debug log
-    setFormData(values);
-    setShowDownload(true);
+  async function onSubmit(values: FormData) {
+    console.log("onSubmit iniciado con valores:", values);
+
+    const data = await getData(
+      values.autor,
+      values.titulo,
+      parseInt(values.year)
+    );
+    console.log("Datos obtenidos de getData:", data);
+
+    const existingArticle = await checkExistingArticle(data);
+    console.log("¿El artículo existe?", existingArticle);
+
+    if (existingArticle) {
+      const id = data[0].id;
+      console.log("ID del artículo encontrado:", id);
+      setFormData(values);
+      setShowDownload(true);
+      setId(id);
+      console.log("Estado actualizado: formData, showDownload, id");
+    } else {
+      console.log("El artículo no existe en la base de datos");
+      alert("El artículo no existe en la base de datos");
+    }
+
+    console.log("onSubmit completado");
   }
 
   return (
@@ -132,9 +218,9 @@ export function CertificateForm() {
           </div>
         </div>
       </div>
-      {showDownload && formData && (
+      {showDownload && formData && id && (
         <div className="mt-4 flex flex-col items-center">
-          <Button onClick={handleClick} className="my-4">
+          <Button onClick={() => handleClick()} className="my-4">
             Descargar Certificado
           </Button>
 

@@ -2,7 +2,7 @@ import * as dotenv from "dotenv"
 import { defineConfig } from "drizzle-kit"
 
 dotenv.config({
-  path: ".env.local",
+  path: ".env",
 })
 
 export default defineConfig({
@@ -10,6 +10,6 @@ export default defineConfig({
   out: "./db/migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    url: process.env.DATABASE_URL as string,
   },
 })
