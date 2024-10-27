@@ -5,6 +5,7 @@ interface CertificateProps {
   autor: string;
   year: string;
   certificateRef: React.RefObject<HTMLDivElement>;
+  isChecked: boolean;
 }
 
 export const Certificate: React.FC<CertificateProps> = ({
@@ -12,6 +13,7 @@ export const Certificate: React.FC<CertificateProps> = ({
   autor,
   year,
   certificateRef,
+  isChecked,
 }) => {
   const date = new Date().toLocaleDateString("es-ES", {
     day: "2-digit",
@@ -20,7 +22,7 @@ export const Certificate: React.FC<CertificateProps> = ({
   });
   return (
     <div
-      className="w-[297mm] h-[210mm] p-14 bg-white text-black flex flex-col items-center"
+      className="w-[310mm] h-[230mm] p-14 bg-white text-black flex flex-col items-center"
       ref={certificateRef}
     >
       <div className="w-full flex justify-center mb-8">
@@ -67,6 +69,16 @@ export const Certificate: React.FC<CertificateProps> = ({
         filosóficas desde la antigüedad hasta la actualidad. Ocupa una posición
         Q2 en SJR y cuenta con el sello de calidad de la FECYT.
       </p>
+      {!isChecked && (
+        <>
+          <p className="text-red-500 mb-2">
+            Este certificado no ha sido verificado y no tiene validez oficial.
+          </p>
+          <p className="text-red-500 mb-2">
+            Click en descargar para verificar el certificado.
+          </p>
+        </>
+      )}
 
       <p className="mb-8">En Madrid, a la fecha de la firma,</p>
       <p>Luis Alegre Zahonero</p>

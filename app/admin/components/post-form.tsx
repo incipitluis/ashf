@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createArticle } from "../admin/actions";
+import { createArticle } from "../actions";
 
 const formSchema = z.object({
   autor: z.string().min(2, {

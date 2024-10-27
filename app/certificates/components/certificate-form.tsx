@@ -15,12 +15,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createCertificate } from "../utils/create-certificate";
+import { createCertificate } from "../../utils/create-certificate";
 import { Certificate } from "./certificate";
 
-import { updateArticleStatus } from "../actions";
 import { SelectArticle } from "@/db/schema";
-import { getData } from "../data";
+import { getArticles } from "../data";
+import { updateArticleStatus } from "../actions";
 
 const formSchema = z.object({
   autor: z.string().min(2, {
@@ -40,6 +40,8 @@ export function CertificateForm() {
   const [showDownload, setShowDownload] = useState(false);
   const [formData, setFormData] = useState<FormData | null>(null);
   const [id, setId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const certificateRef = useRef<HTMLDivElement>(null);
 
   console.log("Rendering CertificateForm"); // Debug log
@@ -95,7 +97,7 @@ export function CertificateForm() {
 
     console.log("Datos extraídos del DOM:", { autor, titulo, year });
 
-    const data = await getData(autor, titulo, year);
+    const data = await getArticles(autor, titulo, year);
     console.log("Datos obtenidos de getData:", data);
 
     const isExistingArticle = await checkExistingArticle(data);
@@ -106,7 +108,7 @@ export function CertificateForm() {
       alert("El artículo no existe en la base de datos");
       return;
     }
-
+    setIsChecked(true);
     console.log("Iniciando creación del certificado");
     await createCertificate(certificateRef.current);
     console.log("Certificado creado");
@@ -119,9 +121,10 @@ export function CertificateForm() {
   };
 
   async function onSubmit(values: FormData) {
+    setIsLoading(true);
     console.log("onSubmit iniciado con valores:", values);
 
-    const data = await getData(
+    const data = await getArticles(
       values.autor,
       values.titulo,
       parseInt(values.year)
@@ -137,10 +140,12 @@ export function CertificateForm() {
       setFormData(values);
       setShowDownload(true);
       setId(id);
+      setIsLoading(false);
       console.log("Estado actualizado: formData, showDownload, id");
     } else {
       console.log("El artículo no existe en la base de datos");
       alert("El artículo no existe en la base de datos");
+      setIsLoading(false);
     }
 
     console.log("onSubmit completado");
@@ -159,7 +164,8 @@ export function CertificateForm() {
             </h1>
             <p className="mt-2 text-gray-500">
               Complete el formulario para solicitar su certificado de aceptación
-              de artículo.
+              de artículo. Nombre, apellidos y título han de coincidir con los
+              proporcionados en OJS.
             </p>
             <div className="mt-6">
               <Form {...form}>
@@ -210,7 +216,7 @@ export function CertificateForm() {
                     )}
                   />
                   <Button type="submit" className="w-full">
-                    Solicitar Certificado
+                    {isLoading ? "Verificando..." : "Solicitar Certificado"}
                   </Button>
                 </form>
               </Form>
@@ -229,6 +235,7 @@ export function CertificateForm() {
             autor={formData.autor}
             year={formData.year}
             certificateRef={certificateRef}
+            isChecked={isChecked}
           />
         </div>
       )}
