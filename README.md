@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ASHF Management Portal
+
+A Next.js 14 application designed to streamline the management of academic indexed journals, specifically for "Anales del Seminario de Historia de la Filosofía" (ASHF). Because researching medieval theologians and embracing modern technology aren't mutually exclusive endeavors.
+
+## Overview
+
+This project serves as a Proof of Concept (POC) for various tools and functionalities that could make academic journal management less painful (we're trying, we really are). Built with modern web technologies, it aims to automate and simplify common administrative tasks.
+
+## Features
+
+- **Certificate Generation**: Automated generation of acceptance certificates for published articles
+- **Database Management**: Easy access and management of published articles
+- **Administrative Tools**: Streamlined interfaces for common editorial tasks
+- More features coming soon
+
+## Tech Stack
+
+- [Next.js 14](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Drizzle ORM](https://orm.drizzle.team/)
+- [PostgreSQL](https://www.postgresql.org/)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18.17 or later
+- PostgreSQL database
+- A sense of humor (optional but recommended)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/ashf-management.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up your environment variables:
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Initialize the database:
+```bash
+npm run db:push
+```
 
-## Learn More
+5. Start the development server:
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+The application will be available at `http://localhost:3000`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+ashf/
+├── app/
+│   ├── admin/           # Administrative interface
+│   ├── certificates/    # Certificate generation
+├── components/         # Shared components
+├── lib/               # Utility functions
+└── public/            # Static assets
+```
 
-## Deploy on Vercel
+## Contributing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We welcome contributions from anyone who thinks they can make academic journal management less of a headache. Please read our contributing guidelines before submitting pull requests.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Development Roadmap
+
+- [x] Basic certificate generation
+- [ ] Reviewer management system
+- [ ] Automated mailing for frequent questions
+- [ ] Advanced analytics
+- [ ] Time machine to automate peer reviews (pending physics breakthrough)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- The entire ASHF editorial team for their enthusiasm and support with our technological experiments
+- Ediciones Complutense, with hope that they will give us access to OJS API soon
+
+## Contact
+
+For questions, suggestions, or debates about the nature of digital automation, please open an issue or contact the maintainers.
+
+---
+
+Built with ❤️ and 🤔 by the ASHF Tech Team
