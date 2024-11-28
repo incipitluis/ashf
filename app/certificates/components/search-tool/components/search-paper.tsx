@@ -24,7 +24,6 @@ export function SearchArticle({ onArticleSelect }: SearchArticleProps) {
   const [searchInput, setSearchInput] = useState("");
   const [isSearchPopoverOpen, setIsSearchPopoverOpen] = useState(false);
   const [searchResults, setSearchResults] = useState<ArticleSearchResult[]>([]);
-  const [isSelectedArticle, setIsSelectedArticle] = useState(false);
   const [isSearchingArticle, startSearchingArticle] = useTransition();
 
   const handleSearchInputChange = async (
@@ -58,7 +57,6 @@ export function SearchArticle({ onArticleSelect }: SearchArticleProps) {
     setSearchInput(titulo);
     onArticleSelect(id, titulo, autor, year);
     setIsSearchPopoverOpen(false);
-    setIsSelectedArticle(true);
   };
 
   return (
@@ -83,7 +81,6 @@ export function SearchArticle({ onArticleSelect }: SearchArticleProps) {
             className="absolute right-0"
             onClick={() => {
               setSearchInput("");
-              setIsSelectedArticle(false);
               setSearchResults([]);
             }}
           >

@@ -81,7 +81,7 @@ export const Certificate: React.FC<CertificateProps> = ({
       )}
 
       <p className="mb-8">En Madrid, a la fecha de la firma,</p>
-      <p>Luis Alegre Zahonero</p>
+      <p>Nombre del secretario</p>
       <p>Secretario de redacción</p>
     </div>
   );
