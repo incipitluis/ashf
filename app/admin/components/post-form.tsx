@@ -15,6 +15,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createArticle } from "../actions";
+import { setPreviousArticles } from "@/app/certificates/actions";
+import { useState, useTransition } from "react";
 
 const formSchema = z.object({
   autor: z.string().min(2, {
@@ -31,6 +33,8 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export function PostForm() {
+  const [isLoading, startTransition] = useTransition();
+  const [isSuccess, setIsSuccess] = useState(false);
   console.log("Rendering CertificateForm"); // Debug log
 
   const form = useForm<FormData>({
@@ -42,10 +46,18 @@ export function PostForm() {
     },
   });
 
+  async function handleSetPreviousArticles() {
+    await setPreviousArticles();
+  }
+
   async function onSubmit() {
-    const formattedYear = parseInt(form.getValues().year);
-    const article = form.getValues();
-    await createArticle({ ...article, year: formattedYear });
+    startTransition(async () => {
+      const article = form.getValues();
+      await createArticle(article);
+      setIsSuccess(true);
+    });
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setIsSuccess(false);
   }
 
   return (
@@ -114,8 +126,24 @@ export function PostForm() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" className="w-full">
-                    Enviar
+                  <Button
+                    type="submit"
+                    className={`w-full ${isSuccess ? "bg-green-500" : ""} ${
+                      isLoading ? "disabled opacity-50" : ""
+                    }`}
+                  >
+                    {isLoading
+                      ? "Enviando..."
+                      : isSuccess
+                      ? "Artículo creado correctamente"
+                      : "Enviar"}
+                  </Button>
+                  <Button
+                    type="button"
+                    className="w-full"
+                    onClick={handleSetPreviousArticles}
+                  >
+                    Cargar Artículos Anteriores
                   </Button>
                 </form>
               </Form>

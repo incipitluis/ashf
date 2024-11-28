@@ -1,0 +1,1 @@
+ALTER TABLE "articulos" ALTER COLUMN "year" SET DATA TYPE text;
