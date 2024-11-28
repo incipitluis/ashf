@@ -108,7 +108,7 @@ export function CertificateForm() {
             <h1 className="block mt-1 text-lg leading-tight font-medium text-black">
               Solicitud de Certificado de Aceptación
             </h1>
-            <p className="mt-2 text-gray-500">
+            <p className="my-1 text-sm text-gray-500">
               Busque el título de su artículo en nuestra base de datos
             </p>
             <div className="my-4">
