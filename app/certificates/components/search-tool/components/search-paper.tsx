@@ -68,7 +68,7 @@ export function SearchArticle({ onArticleSelect }: SearchArticleProps) {
           type="text"
           value={searchInput}
           onChange={handleSearchInputChange}
-          placeholder="Search apartment..."
+          placeholder="Escribe el título de tu artículo..."
           autoFocus
         />
         {isSearchingArticle ? (
