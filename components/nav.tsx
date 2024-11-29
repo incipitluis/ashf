@@ -5,12 +5,35 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
+const elements = [
+  {
+    name: "Inicio",
+    href: "/",
+  },
+  {
+    name: "Certificados de publicación",
+    href: "/certificates",
+  },
+  {
+    name: "Administración",
+    href: "/admin",
+  },
+  {
+    name: "Certificados de revisión",
+    href: "/evaluation-certificate",
+  },
+  {
+    name: "Blog",
+    href: "/blog",
+  },
+];
+
 export function Nav() {
   const pathname = usePathname();
 
   return (
     <div className="fixed w-full z-50 flex justify-center px-4 py-4">
-      <nav className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 w-full max-w-3xl">
+      <nav className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 w-fit">
         <div className="px-4 sm:px-6">
           <div className="flex justify-between h-16">
             <div className="flex items-center space-x-4 w-full">
@@ -24,42 +47,23 @@ export function Nav() {
                 />
                 <span className="text-lg font-bold text-gray-800">ASHF</span>
               </div>
-              <div className="hidden sm:flex sm:space-x-4">
-                <Link
-                  href="/"
-                  className={cn(
-                    "inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
-                    pathname === "/"
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                  )}
-                >
-                  Inicio
-                </Link>
-                <Link
-                  href="/certificates"
-                  className={cn(
-                    "inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
-                    pathname === "/certificates"
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                  )}
-                >
-                  Certificados
-                </Link>
-                <Link
-                  href="/admin"
-                  className={cn(
-                    "inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
-                    pathname === "/admin"
-                      ? "bg-blue-50 text-blue-700"
-                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                  )}
-                >
-                  Administración
-                </Link>
+                <div className="hidden sm:flex sm:space-x-4">
+                  {elements.map((element, index) => (
+                  <Link
+                    key={index}
+                    href={element.href}
+                    className={cn(
+                      "inline-flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-200",
+                      pathname === element.href
+                        ? "bg-blue-50 text-blue-700"
+                        : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                    )}
+                  >
+                    {element.name}
+                  </Link>
+                ))}
               </div>
-            </div>
+            </div>  
           </div>
         </div>
 
