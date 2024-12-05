@@ -20,7 +20,8 @@ export const keywordColors = [
     "bg-red-200",
     "bg-purple-200",
     "bg-yellow-200"
-]
+];
+
 
 export default function BlogPostContent(post: SelectBlog) {
     const contentFragments = splitContentInThree(post.content!);
@@ -37,7 +38,7 @@ export default function BlogPostContent(post: SelectBlog) {
                     {formatKeywords(post.keywords).map((keyword, index) => (
                         <span 
                             key={index}
-                            className={`px-2 py-1 bg-white border border-gray-200 text-gray-700 rounded-full text-sm opacity-80 hover:opacity-100 hover:bg-gray-50 hover:border-gray-300 transition-all ${keywordColors[index % keywordColors.length]}`}
+                            className={`px-2 py-1 ${keywordColors[index % keywordColors.length]} border border-gray-200 text-gray-700 rounded-full text-sm opacity-80 hover:opacity-100 hover:bg-gray-50 hover:border-gray-300 transition-all`}
                         >
                             {keyword}
                         </span>
