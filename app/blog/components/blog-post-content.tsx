@@ -15,10 +15,11 @@ export const formatKeywords = (keywords: string) => {
 }
 
 export const keywordColors = [
-    "bg-blue-300",
-    "bg-green-300",
-    "bg-red-300",
-    "bg-purple-300",
+    "bg-blue-200",
+    "bg-green-200",
+    "bg-red-200",
+    "bg-purple-200",
+    "bg-yellow-200"
 ]
 
 export default function BlogPostContent(post: SelectBlog) {
@@ -36,7 +37,7 @@ export default function BlogPostContent(post: SelectBlog) {
                     {formatKeywords(post.keywords).map((keyword, index) => (
                         <span 
                             key={index}
-                            className={`px-2 py-1 bg-white border border-gray-200 text-gray-700 rounded-full text-sm hover:bg-gray-50 hover:border-gray-300 transition-all ${keywordColors[index % keywordColors.length]}`}
+                            className={`px-2 py-1 bg-white border border-gray-200 text-gray-700 rounded-full text-sm opacity-80 hover:opacity-100 hover:bg-gray-50 hover:border-gray-300 transition-all ${keywordColors[index % keywordColors.length]}`}
                         >
                             {keyword}
                         </span>
@@ -63,7 +64,7 @@ export default function BlogPostContent(post: SelectBlog) {
           <div className="flex items-center justify-between text-gray-600">
             <div className="flex items-center gap-4">
               <span className="text-sm">By {post.author}, {formatDate(post.createdAt!)}</span>
-              <div className="flex items-center gap-2" onClick={() => incrementLikes(post.id)}>
+              <div className="flex items-center gap-2" onClick={() => incrementLikes(post.id, "/blog/post/" + post.id)}>
                 {(post.likes ?? 0) > 0 ? (
                   <Heart className="h-5 w-5 text-red-500" />
                 ) : (
@@ -86,7 +87,6 @@ export default function BlogPostContent(post: SelectBlog) {
             )}
           </div>
         </header>
-
         {/* First Fragment */}
         <div className="bg-white rounded-2xl shadow-sm p-8 mb-12">
             <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600">
