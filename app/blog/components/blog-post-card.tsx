@@ -3,7 +3,6 @@
 import { SelectBlog } from "@/db/schema";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatKeywords, keywordColors } from "./blog-post-content";
 import Image from "next/image";
 import { Heart } from "lucide-react";
 
@@ -36,8 +35,11 @@ if (isModerna) {
   } else if (isMedieval) {
     imageSource = imagesKeywordMap.medieval;
   } else if (isContemporanea) {
-    !isDeleuze && (imageSource = imagesKeywordMap.contemporanea);
-    isDeleuze && (imageSource = imagesKeywordMap.Deleuze);
+    if (isDeleuze) {
+      imageSource = imagesKeywordMap.Deleuze;
+    } else {
+      imageSource = imagesKeywordMap.contemporanea;
+    }
   }
 
   return (
