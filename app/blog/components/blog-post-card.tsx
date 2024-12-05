@@ -16,7 +16,8 @@ const imagesKeywordMap = {
   medieval: "/medieval.jpg",
   Deleuze: "/deleuze.jpg",
   modern: "/moderna.jpg",
-  contemporanea: "/defaultblog.jpg"
+  contemporanea: "/defaultblog.jpg",
+  ancient: "/antigua.jpeg"
 }
 
 export function BlogPostCard({ post }: BlogPostCardProps) {
