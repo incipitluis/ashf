@@ -77,8 +77,8 @@ export async function POST(req: Request) {
       url: result.doiUrl,
       author: author,
       type: type,
-      papersContentId: promptKey === 'intro' ? null : sourceId,
-      journalsContentId: promptKey === 'paper' ? null : sourceId,
+      papersContentId: promptKey === 'journal' ? null : sourceId,
+      journalsContentId: promptKey === 'journal' ? sourceId : null,
     });
 
     return new Response('Success', { status: 200 });
