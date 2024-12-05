@@ -26,6 +26,7 @@ const isModerna = post.keywords?.includes("moderna");
 const isAntigua = post.keywords?.includes("antigua");
 const isMedieval = post.keywords?.includes("medieval");
 const isContemporanea = post.keywords?.includes("contemporanea");
+const isDeleuze = post.keywords?.includes("Deleuze");
 
 let imageSource = "/defaultblog.jpg";
 if (isModerna) {
@@ -35,7 +36,8 @@ if (isModerna) {
   } else if (isMedieval) {
     imageSource = imagesKeywordMap.medieval;
   } else if (isContemporanea) {
-    imageSource = imagesKeywordMap.contemporanea;
+    !isDeleuze && (imageSource = imagesKeywordMap.contemporanea);
+    isDeleuze && (imageSource = imagesKeywordMap.Deleuze);
   }
 
   return (
