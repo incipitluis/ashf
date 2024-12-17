@@ -1,17 +1,16 @@
-import { BlogPostCard } from "./components/blog-post-card";
-import { getBlogPosts } from "./data";
-
+import { HeroBlog } from "./components/hero-blog";
+import HeroImageBlog from "./components/heroimageblog";
+import { PostsPanel } from "./components/posts-panel";
+import { getMostRecentPosts } from "./data";
 
 export default async function BlogPage() {
-  const posts = await getBlogPosts();
+  const recentPosts = await getMostRecentPosts();
+
   return (
-    <div className="container mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-8">Automatically generated AI written blog posts</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <BlogPostCard key={post.id} post={post} />
-        ))} 
-      </div>
+    <div className="container mx-auto py-4">
+      <HeroImageBlog />
+      <HeroBlog recentPosts={recentPosts} />
+      <PostsPanel/>
     </div>
   );
 }

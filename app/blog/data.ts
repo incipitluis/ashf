@@ -1,6 +1,8 @@
+'use server'
+
 import { db } from "@/db/drizzle";
 import { journalsContent, papersContent } from "@/db/schema";
-import { eq, isNull } from "drizzle-orm";
+import { desc, eq, isNull } from "drizzle-orm";
 import { blog } from "@/db/schema";
 
 export async function getUnprocessedPapers() {
@@ -48,4 +50,19 @@ export async function getBlogPosts() {
 export async function getBlogPostById(id: string) {
     const post = await db.select().from(blog).where(eq(blog.id, id));
     return post[0];
+}
+
+export async function getMostRecentPosts() {
+    const posts = await db.select().from(blog).orderBy(desc(blog.createdAt)).limit(3);
+    return posts;
+}
+
+export async function getThreeMorePosts(skip: number) {
+    const posts = await db
+        .select()
+        .from(blog)
+        .orderBy(desc(blog.createdAt))
+        .limit(3)
+        .offset(skip);
+    return posts;
 }

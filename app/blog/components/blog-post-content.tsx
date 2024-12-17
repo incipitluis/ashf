@@ -15,11 +15,11 @@ export const formatKeywords = (keywords: string) => {
 }
 
 export const keywordColors = [
-    "bg-blue-200",
-    "bg-green-200",
-    "bg-red-200",
-    "bg-purple-200",
-    "bg-yellow-200"
+    "bg-indigo-100/80",
+    "bg-emerald-100/80",
+    "bg-rose-100/80",
+    "bg-violet-100/80",
+    "bg-amber-100/80"
 ];
 
 
@@ -33,12 +33,12 @@ export default function BlogPostContent(post: SelectBlog) {
     return(
         <article className="container mx-auto px-4 max-w-4xl">
              {post.keywords && (
-            <div className="bg-gray-50 rounded-2xl px-8 mb-4">
+            <div className="bg-slate-50/50 backdrop-blur-sm rounded-2xl px-8 mb-4">
                 <div className="flex flex-wrap gap-2 justify-end">
                     {formatKeywords(post.keywords).map((keyword, index) => (
                         <span 
                             key={index}
-                            className={`px-2 py-1 ${keywordColors[index % keywordColors.length]} border border-gray-200 text-gray-700 rounded-full text-sm opacity-80 hover:opacity-100 hover:bg-gray-50 hover:border-gray-300 transition-all`}
+                            className={`px-2 py-1 ${keywordColors[index % keywordColors.length]} border border-slate-200 text-slate-700 rounded-full text-sm opacity-80 hover:opacity-100 hover:bg-white/50 hover:border-slate-300 transition-all`}
                         >
                             {keyword}
                         </span>
@@ -60,9 +60,9 @@ export default function BlogPostContent(post: SelectBlog) {
             </div>
           )}
           
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{post.title}</h1>
+          <h1 className="text-4xl font-bold text-slate-800 mb-4">{post.title}</h1>
           
-          <div className="flex items-center justify-between text-gray-600">
+          <div className="flex items-center justify-between text-slate-600">
             <div className="flex items-center gap-4">
               <span className="text-sm">By {post.author}, {formatDate(post.createdAt!)}</span>
               <div className="flex items-center gap-2" onClick={() => incrementLikes(post.id, "/blog/post/" + post.id)}>
@@ -80,7 +80,7 @@ export default function BlogPostContent(post: SelectBlog) {
                 href={post.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors"
+                className="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 transition-colors"
               >
                 <BookOpen className="h-5 w-5" />
                 <span className="text-sm">Read the Paper</span>
@@ -89,8 +89,8 @@ export default function BlogPostContent(post: SelectBlog) {
           </div>
         </header>
         {/* First Fragment */}
-        <div className="bg-white rounded-2xl shadow-sm p-8 mb-12">
-            <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200 p-8 mb-12">
+            <div className="prose prose-lg max-w-none prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600">
                 {firstFragment}
             </div>
         </div>
@@ -99,24 +99,24 @@ export default function BlogPostContent(post: SelectBlog) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {/* Important Fragment */}
             {post.importantFragment && (
-                <div className="bg-blue-50 rounded-2xl p-8 flex items-center">
-                    <blockquote className="text-2xl font-serif text-blue-800 italic border-l-4 border-blue-300 pl-6">
+                <div className="bg-indigo-50/80 backdrop-blur-sm rounded-2xl p-8 flex items-center border border-indigo-100">
+                    <blockquote className="text-2xl font-serif text-indigo-800 italic border-l-4 border-indigo-300 pl-6">
                         &ldquo;{post.importantFragment}&rdquo;
                     </blockquote>
                 </div>
             )}
 
             {/* Second Fragment */}
-            <div className="bg-white rounded-2xl shadow-sm p-8">
-                <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600">
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200 p-8">
+                <div className="prose prose-lg max-w-none prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600">
                     {secondFragment}
                 </div>
             </div>
         </div>
 
         {/* Third Fragment */}
-        <div className="bg-white rounded-2xl shadow-sm p-8 mb-12">
-            <div className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200 p-8 mb-12">
+            <div className="prose prose-lg max-w-none prose-headings:text-slate-800 prose-p:text-slate-600 prose-a:text-indigo-600">
                 {thirdFragment}
             </div>
         </div>

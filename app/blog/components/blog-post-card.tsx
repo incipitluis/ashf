@@ -10,7 +10,7 @@ interface BlogPostCardProps {
   post: SelectBlog;
 }
 
-const imagesKeywordMap = {
+export const imagesKeywordMap = {
   antigua: "/antigua.jpeg",
   moderna: "/moderna.jpg",
   medieval: "/medieval.jpg",
@@ -45,16 +45,18 @@ if (isModerna) {
 
   return (
     <Link href={`/blog/post/${post.id}`}>
-      <Card className="h-full hover:shadow-md transition-shadow relative">
+      <Card className="h-full hover:shadow-lg transition-all duration-200 relative bg-white/90 backdrop-blur-sm border border-slate-200">
         <CardHeader>
-            <div className="flex w-full h-24 justify-center rounded-md overflow-hidden">
-                <Image src={imageSource} alt="Logo" width={300} height={200} className="object-cover" />
-            </div>
-          <CardTitle className="text-lg">{post.title}</CardTitle>
+          <div className="flex w-full h-24 justify-center rounded-md overflow-hidden">
+            <Image src={imageSource} alt="Logo" width={300} height={200} className="object-cover" />
+          </div>
+          <CardTitle className="text-lg text-slate-800">{post.title}</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-600 line-clamp-3 mb-2">{post.content?.substring(0, 150)}...</p>
-          <div className={`absolute bottom-2 right-2 flex items-center gap-1 ${post.likes && post.likes > 0 ? 'text-red-500' : 'text-gray-500'}`}>
+          <p className="text-sm text-slate-600 line-clamp-3 mb-2">{post.content?.substring(0, 150)}...</p>
+          <div className={`absolute bottom-2 right-2 flex items-center gap-1 ${
+            post.likes && post.likes > 0 ? 'text-rose-500' : 'text-slate-400'
+          }`}>
             <Heart size={16} />
             <span className="text-sm">{post.likes || 0}</span>
           </div>
