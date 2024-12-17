@@ -17,13 +17,13 @@ const functionalities = [
       "y botones de solicitar y descargar certificados.\n\n" +
       "Incorpora double check en servidor para evitar fraudes,\n" +
       "y previsualización con marca de agua del certificado.",
-    link: "/certificados",
+    link: "/certificates",
   },
   {
     title: "Certificados de revisión",
     description: "Gestione certificados para revisores de artículos.",
     tooltip: "Se compone de un formulario mediante el cual lxs revisorxs pueden solicitar certificados para los artículos que han revisado. ",
-    link: "/certificados",
+    link: "/evaluation-certificate",
   },
   {
     title: "Gestión de base de datos",
@@ -35,7 +35,7 @@ const functionalities = [
       "Se le han diseñado botones responsivos y permite la creación\n" +
       "de nuevos artículos en la base de datos. \n" +
       "Se añade finalmente un panel de gestión de certificados de revisión.",
-    link: "/certificados",
+    link: "/admin",
   },
   {
     title: "Blog informativo",
