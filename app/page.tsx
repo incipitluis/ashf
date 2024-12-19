@@ -76,9 +76,7 @@ export default function Home() {
 
           <div className="bg-indigo-50 border-l-4 border-indigo-500 p-4 mb-8">
             <p className="text-indigo-700">
-              Este portal se encuentra en desarrollo activo, implementando
-              nuevas funcionalidades para mejorar la experiencia de nuestros
-              colaboradores.
+              Este portal se encuentra en desarrollo activo. Su propósito es servir como prueba de concepto a presentar como Trabajo final para el curso de Competencias para la Gestión Digital de la Producción Cultural y Creativa, en la UNED.
             </p>
           </div>
 

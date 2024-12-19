@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createArticle } from "../actions";
-import { setPreviousArticles } from "@/app/certificates/actions";
 import { useState, useTransition } from "react";
 
 const formSchema = z.object({
@@ -46,9 +45,9 @@ export function PostForm() {
     },
   });
 
-  async function handleSetPreviousArticles() {
+/*   async function handleSetPreviousArticles() {
     await setPreviousArticles();
-  }
+  } */
 
   async function onSubmit() {
     startTransition(async () => {
@@ -138,13 +137,13 @@ export function PostForm() {
                       ? "Artículo creado correctamente"
                       : "Enviar"}
                   </Button>
-                  <Button
+                 {/*  <Button
                     type="button"
                     className="w-full"
                     onClick={handleSetPreviousArticles}
                   >
                     Cargar Artículos Anteriores
-                  </Button>
+                  </Button> */}
                 </form>
               </Form>
             </div>

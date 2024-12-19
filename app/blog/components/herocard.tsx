@@ -24,7 +24,7 @@ export const HeroCard = ({ post, type }: HeroCardProps) => {
 
     if (type === "main") {
         return (
-            <Link href={`/blog/${post.id}`}>
+            <Link href={`/blog/post/${post.id}`}>
             <div className="relative h-96 w-46 flex flex-col items-center justify-center bg-white dark:text-white dark:bg-neutral-800 shadow-md rounded-md overflow-hidden cursor-pointer group">
                 <div className="relative w-full h-full">
                     <Image src={"/davinci.webp"} alt={post.title} fill className="object-cover position-start transition-opacity duration-500 ease-in-out group-hover:opacity-50" />
@@ -42,7 +42,7 @@ export const HeroCard = ({ post, type }: HeroCardProps) => {
 
 if (type === "secondary") {
     return (
-        <Link href={`/blog/${post.id}`}>
+        <Link href={`/blog/post/${post.id}`}>
             <div className="relative h-full w-full flex flex-col items-center justify-center bg-white dark:text-white dark:bg-neutral-800 shadow-md rounded-md overflow-hidden cursor-pointer group">
                 <div className="relative w-full h-full">
                     <Image src={"/galileo.webp"} alt={post.title} fill className="object-cover position-start transition-opacity duration-500 ease-in-out group-hover:opacity-50" />
@@ -61,7 +61,7 @@ if (type === "secondary") {
 if (type === "tertiary") {
     return (
         <div className={`h-full bg-white/95 backdrop-blur-sm rounded-lg shadow-lg border border-slate-200 p-3 transition-transform transform hover:scale-100`}>
-           <Link href={`/blog/${post.id}`}> 
+           <Link href={`/blog/post/${post.id}`}> 
            <h2 className="text-lg font-bold text-slate-800 mb-1">{normalizeTitle(post.title)}</h2>
            </Link>
             <p className="text-sm text-slate-600">{post.content?.substring(0, 75)}...</p>
