@@ -9,7 +9,9 @@ export default async function BlogPage() {
   return (
     <div className="container mx-auto py-4">
       <HeroImageBlog />
+      <div className="hidden md:block">
       <HeroBlog recentPosts={recentPosts} />
+      </div>
       <PostsPanel/>
     </div>
   );

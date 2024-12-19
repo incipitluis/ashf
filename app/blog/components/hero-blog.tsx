@@ -1,11 +1,21 @@
+
 import { SelectBlog } from "@/db/schema";
-import { HeroCard } from './herocard'; // Changed to named import
+import { HeroCard } from './herocard';
+
+export const sourceOptions = [
+  "/davinci.webp",
+  "/galileo.wepb",
+  "/acephale.jpg",
+  "/plato.jpg"
+]
+
 
 export const HeroBlog = ({ recentPosts }: { recentPosts: SelectBlog[] }) => {
+
   return (
     <div className="flex mb-8 p-4 rounded-lg ">
       <div className="w-1/2 h-full pr-2">
-        <HeroCard post={recentPosts[0]} type="main" /> {/* Most recent post */}
+        <HeroCard post={recentPosts[0]} type="main"/> {/* Most recent post */}
       </div>
       <div className="w-1/2 flex flex-col gap-2">
         <div className="h-2/3">

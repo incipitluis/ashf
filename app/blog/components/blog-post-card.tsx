@@ -50,7 +50,7 @@ if (isModerna) {
           <div className="flex w-full h-24 justify-center rounded-md overflow-hidden">
             <Image src={imageSource} alt="Logo" width={300} height={200} className="object-cover" />
           </div>
-          <CardTitle className="text-lg text-slate-800">{post.title}</CardTitle>
+          <CardTitle className="text-lg sm:text-lg text-slate-800">{post.title}</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-sm text-slate-600 line-clamp-3 mb-2">{post.content?.substring(0, 150)}...</p>
