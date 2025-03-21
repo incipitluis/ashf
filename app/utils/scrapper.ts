@@ -26,9 +26,6 @@ export async function scrapJournalIssues({url, year}: {url: string, year: string
     
     // Find all anchor elements with class "title"
     
-    const anchorElements = $('a.title');
-   
-    
     $('a.title').each((index, element) => {
       const $element = $(element);
       const href = $element.attr('href');

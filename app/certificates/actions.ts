@@ -25,14 +25,43 @@ export async function setPreviousArticles(){
   }
 }
 
+// Define a type for the review data
+type ReviewData = {
+  "Fase"?: string;
+  "Ronda"?: string;
+  "Título del envío"?: string;
+  "ID del envío"?: string;
+  "Revisor/a"?: string;
+  "Nombre"?: string;
+  "Apellidos"?: string;
+  "Identificador ORCID"?: string;
+  "País"?: string;
+  "Afiliación"?: string;
+  "Correo electrónico"?: string;
+  "Intereses de revisión"?: string;
+  "Fecha asignada"?: string;
+  "Fecha notificada"?: string;
+  "Fecha confirmada"?: string;
+  "Fecha completada"?: string;
+  "Sin considerar"?: string;
+  "Fecha recordatorio"?: string;
+  "Fecha límite de la contestación"?: string;
+  "Días de vencimiento de la respuesta"?: string;
+  "Fecha límite de la revisión"?: string;
+  "Días de vencimiento de la revisión"?: string;
+  "Rechazado"?: string;
+  "Recomendación"?: string;
+  "Comentarios sobre el envío"?: string;
+}
+
 export async function setReviews( {journal}: {journal: string}){
   try {
     // Read the JSON file
     const filePath = path.join(process.cwd(), `app/utils/reviews-${journal}.json`);
     const fileContent = fs.readFileSync(filePath, 'utf8');
-    const reviews = JSON.parse(fileContent);
+    const reviews = JSON.parse(fileContent) as ReviewData[];
 
-    const filteredReviews = reviews.filter((review: any) => {
+    const filteredReviews = reviews.filter((review: ReviewData) => {
       if (!review["Fecha asignada"]) return false;
       const assignedDate = new Date(review["Fecha asignada"]);
       const year = assignedDate.getFullYear();
@@ -50,7 +79,7 @@ export async function setReviews( {journal}: {journal: string}){
     // Process and insert each review
     for (const review of filteredReviews) {
       const reviewData: InsertAnalesReviews = {
-        fase: review["﻿Fase"] || null,
+        fase: review["Fase"] || null,
         ronda: review["Ronda"] || null,
         tituloEnvio: review["Título del envío"] || null,
         idEnvio: review["ID del envío"] || null,

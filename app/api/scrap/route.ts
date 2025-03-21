@@ -27,7 +27,8 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ error: 'No issues found' }, { status: 404 });
   }
 
-  let issues = [];
+  const issues = [];
+  
   for (const issue of journalIssues) {
    const result = await scrapJournalArticles(issue.url);
    issues.push(result);

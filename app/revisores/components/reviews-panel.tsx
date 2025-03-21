@@ -2,22 +2,19 @@
 
 import { SelectAnalesReviews, SelectArticlesAnales } from "@/db/schema"
 import StateSelector from "./state-selector"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import YearSelector from "./year-selector";
-import { getRevisores } from "../data";
 import { JournalSelector } from "./journal-selector";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { ModeSelector } from "./mode-selector";
 
-
-
-export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales[] | undefined}){
+export default function ReviewsPanel() {
   const [selectedState, setSelectedState] = useState<string>('Aceptado');
   const [selectedYear, setSelectedYear] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isReviewersLoading, setIsReviewersLoading] = useState<boolean>(false);
-  const [scrapedData, setScrapedData] = useState<any[]>([]);
+  const [scrapedData, setScrapedData] = useState<Array<{articleIds?: string[]}>>([]);
   const [mode, setMode] = useState<string>('solicitud');
   const [scrapYear, setScrapYear] = useState<string>('');
   const [reviews, setReviews] = useState<SelectAnalesReviews[]>([]);
@@ -92,7 +89,7 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
     <div className="bg-white rounded-lg shadow-md p-24 max-w-5xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-800 mb-6 border-b pb-3">Reviews Dashboard</h1>
       <div>
-        <ModeSelector mode={mode} setMode={setMode} />
+        <ModeSelector setMode={setMode} />
       </div>
       {mode === 'solicitud' && (
         <div className="flex flex-col md:flex-row gap-4 my-6">

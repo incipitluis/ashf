@@ -1,9 +1,6 @@
 'use client'
 
 
-import { useState } from "react";
-
-
 export const JournalSelector = ({journal, setJournal}: {journal: string, setJournal: (journal: string) => void}) => {
   return (
     <div className="mb-6">
