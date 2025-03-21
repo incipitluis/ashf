@@ -15,9 +15,9 @@ const StateSelector: React.FC<StateSelectorProps> = ({ onSelectState }) => {
 
   return (
     <div>
-      <label htmlFor="state-selector">Select State: </label>
+      <label htmlFor="state-selector">Selecciona estado: </label>
       <select id="state-selector" value={selectedState} onChange={handleChange}>
-        <option value="Publicado">Publicado</option>
+        <option value="Aceptado">Aceptado</option>
         <option value="Rechazado">Rechazado</option>
       </select>
     </div>

@@ -12,7 +12,7 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
   const [reviews, setReviews] = useState<SelectAnalesReviews[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<SelectArticlesAnales[]>([]);
   const [reviewsFiltered, setReviewsFiltered] = useState<SelectAnalesReviews[]>([]);
-  const years = Array.from({length: 2030 - 2010}, (_, i) => (2015 + i).toString());
+  const years = Array.from({length: 2030 - 2015}, (_, i) => (2015 + i).toString());
   
   
   const handleStateChange = (state: string) => {
