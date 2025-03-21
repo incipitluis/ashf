@@ -1,10 +1,12 @@
 
-import { NextResponse } from "next/server"
-import { setArticlesAnales } from "@/app/certificates/actions"
+import { NextRequest, NextResponse } from "next/server"
+import { setArticles } from "@/app/certificates/actions"
 
-export const POST = async () => {
+export const POST = async (request: NextRequest) => {
+  const searchParams = request.nextUrl.searchParams;
+  const journal = searchParams.get('journal');
   try {
-    const data = await setArticlesAnales()
+    const data = await setArticles({journal: journal || ''})
     return NextResponse.json(data)
   } catch (error) {
     console.error("Error processing request:", error)

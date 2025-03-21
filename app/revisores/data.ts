@@ -7,7 +7,7 @@ import { sql, and, isNotNull } from "drizzle-orm"
 
 export async function getRevisores(year: string){
   const data = await db.select().from(analesReviews)
-    .where(and(sql`EXTRACT(YEAR FROM "fecha_completada"::timestamp) = ${year}`, sql`revisor_nombre IS NOT NULL`, isNotNull(analesReviews.fechaCompletada)))
+    .where(and(sql`"fecha_completada"::text ILIKE '%${year}%'`, isNotNull(analesReviews.fechaCompletada)))
     
   // Crear un objeto para rastrear reviews ya procesadas
   const uniqueReviews = new Map();

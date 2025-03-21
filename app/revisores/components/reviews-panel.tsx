@@ -5,13 +5,21 @@ import StateSelector from "./state-selector"
 import { useEffect, useState } from "react";
 import YearSelector from "./year-selector";
 import { getRevisores } from "../data";
-
+import { JournalSelector } from "./journal-selector";
+import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import { ModeSelector } from "./mode-selector";
 export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales[] | undefined}){
   const [selectedState, setSelectedState] = useState<string>('Aceptado');
-  const [selectedYear, setSelectedYear] = useState<string>('2024');
+  const [selectedYear, setSelectedYear] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [scrapedData, setScrapedData] = useState<any[]>([]);
+  const [mode, setMode] = useState<string>('solicitud');
+  const [scrapYear, setScrapYear] = useState<string>('');
   const [reviews, setReviews] = useState<SelectAnalesReviews[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<SelectArticlesAnales[]>([]);
   const [reviewsFiltered, setReviewsFiltered] = useState<SelectAnalesReviews[]>([]);
+  const [journal, setJournal] = useState<string>('anales');
   const years = Array.from({length: 2030 - 2015}, (_, i) => (2015 + i).toString());
   
   
@@ -23,34 +31,56 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
     setSelectedYear(year);
   };
 
-  useEffect(() => {
-    const fetchReviews = async () => {
-      const reviews = await getRevisores(selectedYear);
-      setReviews(reviews);
-    };
-    fetchReviews();
-  }, [selectedYear]);
+  const handleScrapYearChange = (year: string) => {
+    setScrapYear(year);
+    console.log(year);
+  };
 
-  useEffect(() => {
-    if (selectedState === "Rechazado"){
-      setFilteredArticles(articles?.filter(article => article.estado === "Rechazado") || []);
-    } else {
-      setFilteredArticles(articles?.filter(article => article.estado !== "Rechazado") || []);
-    }
-  }, [selectedState, articles]);
-
-  useEffect(() => {
-    const reviewsFiltered = reviews.filter(review => filteredArticles.some(article => article.idEnvio === review.idEnvio));
-    setReviewsFiltered(reviewsFiltered);
-  }, [filteredArticles, reviews]);
-
+ 
   
+  const handleScrapJournal = async ({journal, year}: {journal: string, year: string}) => {
+    if (!journal) return;
+    
+    setIsLoading(true);
+    try {
+      const response = await fetch(`/api/scrap?journal=${journal}&year=${year}`, {
+        method: 'POST',
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      
+      const data = await response.json();
+      console.log('Scraped data:', data);
+      
+      // Set the scraped data to state
+      setScrapedData(data);
+    } catch (error) {
+      console.error('Error scraping journal:', error);
+      alert('Error scraping journal. Check console for details.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+    const allArticleIds = scrapedData.flatMap(issue => 
+      issue.articleIds ? issue.articleIds : []
+    );
+    
+   
 
   return (
     <div className="bg-white rounded-lg shadow-md p-24 max-w-5xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-800 mb-6 border-b pb-3">Reviews Dashboard</h1>
-      
-      <div className="flex flex-col md:flex-row gap-4 my-6">
+      <div>
+        <ModeSelector mode={mode} setMode={setMode} />
+      </div>
+      {mode === 'solicitud' && (
+        <div className="flex flex-col md:flex-row gap-4 my-6">
+          <div className="w-full md:w-1/2">
+            <JournalSelector journal={journal} setJournal={setJournal} />
+        </div>
         <div className="w-full md:w-1/2">
           <StateSelector onSelectState={handleStateChange} />
         </div>
@@ -58,6 +88,41 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
           <YearSelector years={years} onYearChange={handleYearChange} />
         </div>
       </div>
+      )}
+
+      {mode === 'articulos' && (
+        <div className="flex flex-col my-3 justify-center items-center">
+        <div className="flex flex-col md:flex-row gap-4">
+          <div className="w-full md:w-1/2">
+            <JournalSelector journal={journal} setJournal={setJournal} />
+          </div>
+          <div className="w-full md:w-1/2">
+            <YearSelector years={years} onYearChange={handleScrapYearChange} />
+          </div>
+
+        <Button
+          className=""
+          onClick={() => handleScrapJournal({journal, year: scrapYear})}
+          disabled={isLoading}
+         >
+          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get the Ids'}
+        </Button>
+        </div>
+        <p className="text-sm text-gray-500">Selecciona una revista y un año para obtener los artículos publicados en ese año</p>
+        </div>
+      )}
+
+      {scrapedData.length > 0 && (
+       <div className="mt-6">
+         {scrapedData.map((issue, index) => (
+          <div className="flex flex-row gap-2" key={index}>
+            <p className="text-sm text-gray-800 whitespace-nowrap">{issue.Nombre}:</p>
+            <p className="text-sm text-gray-800">{issue.articleIds.join(', ')}</p>
+          </div>
+         ))}
+        </div>
+      )}
+      
       
       {reviewsFiltered.length > 0 ? (
         <>
@@ -103,7 +168,7 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
         </>
       ) : (
         <div className="bg-gray-50 p-8 rounded-lg text-center">
-          <p className="text-gray-600">No reviews found for the selected criteria.</p>
+          <p className="text-gray-600"></p>
         </div>
       )}
     </div>

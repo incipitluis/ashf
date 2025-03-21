@@ -19,6 +19,7 @@
     "@react-pdf/renderer": "^4.0.0",
     "ai": "^4.0.10",
     "axios": "^1.8.4",
+    "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",

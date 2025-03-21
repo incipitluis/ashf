@@ -16,10 +16,6 @@ const YearSelector: React.FC<YearSelectorProps> = ({ years, onYearChange }) => {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <label htmlFor="year-selector" className="mb-2 text-lg font-medium text-gray-700">
-        Selecciona fecha
-      </label>
-      <p>el año seleccionado define la fecha de compleción de la revisión, no de publicación del artículo</p>
       <select
         id="year-selector"
         value={selectedYear}

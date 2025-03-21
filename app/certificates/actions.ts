@@ -1,6 +1,6 @@
 "use server";
 import { db } from "@/db/drizzle";
-import { articulos, analesReviews, type InsertAnalesReviews, articlesAnales } from "@/db/schema";
+import { articulos, analesReviews, type InsertAnalesReviews, articlesAnales, rPubArticles, lasTorresDeLuccaArticles, rPubReviews, lasTorresDeLuccaReviews } from "@/db/schema";
 import { neon } from "@neondatabase/serverless";
 import { eq } from "drizzle-orm";
 import { getArticlesFromWebScraping } from "./data";
@@ -25,15 +25,30 @@ export async function setPreviousArticles(){
   }
 }
 
-export async function setAnalesReviews(){
+export async function setReviews( {journal}: {journal: string}){
   try {
     // Read the JSON file
-    const filePath = path.join(process.cwd(), 'app/utils/reviews-20250320.json');
+    const filePath = path.join(process.cwd(), `app/utils/reviews-${journal}.json`);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const reviews = JSON.parse(fileContent);
+
+    const filteredReviews = reviews.filter((review: any) => {
+      if (!review["Fecha asignada"]) return false;
+      const assignedDate = new Date(review["Fecha asignada"]);
+      const year = assignedDate.getFullYear();
+      return year >= 2020 && year <= 2026;
+    });
     
+    const table = 
+      journal === 'anales' ? analesReviews :
+      journal === 'rpub' ? rPubReviews :
+      journal === 'ltdl' ? lasTorresDeLuccaReviews :
+      null;
+    if (!table) {
+      throw new Error(`Invalid journal: ${journal}`);
+    }
     // Process and insert each review
-    for (const review of reviews) {
+    for (const review of filteredReviews) {
       const reviewData: InsertAnalesReviews = {
         fase: review["﻿Fase"] || null,
         ronda: review["Ronda"] || null,
@@ -62,22 +77,32 @@ export async function setAnalesReviews(){
         comentariosEnvio: review["Comentarios sobre el envío"] || null,
       };
       
-      await db.insert(analesReviews).values(reviewData);
+      await db.insert(table).values(reviewData);
     }
     
-    return { success: true, message: `Imported ${reviews.length} reviews successfully` };
+    return { success: true, message: `Imported ${filteredReviews.length} reviews successfully` };
   } catch (error) {
     console.error("Error importing reviews:", error);
     return { success: false, message: `Error importing reviews: ${error}` };
   }
 }
 
-export async function setArticlesAnales(){
-  const filePath = path.join(process.cwd(), 'app/utils/articles-anales-limpio.json');
+export async function setArticles( {journal}: {journal: string}){
+  const filePath = path.join(process.cwd(), `app/utils/articles-${journal}-limpio.json`);
     const fileContent = fs.readFileSync(filePath, 'utf8');
     const articles = JSON.parse(fileContent);
+
+    const table = 
+      journal === 'anales' ? articlesAnales :
+      journal === 'rpub' ? rPubArticles :
+      journal === 'ltdl' ? lasTorresDeLuccaArticles :
+      null;
+    
+    if (!table) {
+      throw new Error(`Invalid journal: ${journal}`);
+    }
   for (const article of articles) {
-    await db.insert(articlesAnales).values({
+    await db.insert(table).values({
       idEnvio: article["Id. del envío"] || null,
       titulo: article["Título"] || null,
       resumen: article["Resumen"] || null,
