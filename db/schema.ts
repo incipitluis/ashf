@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, uuid, varchar, text, pgEnum, integer, boolean, timestamp, bigint, smallint } from "drizzle-orm/pg-core";
+import { pgTable, uuid, varchar, text, pgEnum, integer, boolean, timestamp, bigint, smallint, date } from "drizzle-orm/pg-core";
 
 export type EstadoSolicitud = 'ACEPTADO' | 'CERTIFICADO' | 'RECHAZADO' | 'PENDIENTE';
 export const estadoLibroEnum = pgEnum('estado_libro', ['ACEPTADO', 'CERTIFICADO', 'RECHAZADO', 'PENDIENTE']);
@@ -131,6 +131,55 @@ export const djangoSession = pgTable('django_session', {
   expireDate: timestamp('expire_date', { withTimezone: true }).notNull(),
 });
 
+export const articlesAnales = pgTable('articles_anales', {
+  idEnvio: text('id_envio').primaryKey(),
+  titulo: text('titulo'),
+  resumen: text('resumen'),
+  nombreAutor1: text('nombre_autor_1'),
+  apellidosAutor1: text('apellidos_autor_1'),
+  correoElectronicoAutor1: text('correo_electronico_autor_1'),
+  tituloSeccion: text('titulo_seccion'),
+  idioma: text('idioma'),
+  asuntos: text('asuntos'),
+  estado: text('estado'),
+  url: text('url'),
+  doi: text('doi'),
+  fechaEnvio: text('fecha_envio'),
+  ultimaModificacion: text('ultima_modificacion'),
+});
+
+
+// New table for reviews
+export const analesReviews = pgTable('anales_reviews', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  fase: text('fase'),
+  ronda: text('ronda'),
+  tituloEnvio: text('titulo_envio'),
+  idEnvio: text('id_envio'),
+  revisorUsername: text('revisor_username'),
+  revisorNombre: text('revisor_nombre'),
+  revisorApellidos: text('revisor_apellidos'),
+  identificadorOrcid: text('identificador_orcid'),
+  pais: text('pais'),
+  afiliacion: text('afiliacion'),
+  correoElectronico: text('correo_electronico'),
+  interesesRevision: text('intereses_revision'),
+  fechaAsignada: text('fecha_asignada'),
+  fechaNotificada: text('fecha_notificada'),
+  fechaConfirmada: text('fecha_confirmada'),
+  fechaCompletada: text('fecha_completada'),
+  sinConsiderar: text('sin_considerar'),
+  fechaRecordatorio: text('fecha_recordatorio'),
+  fechaLimiteContestacion: text('fecha_limite_contestacion'),
+  diasVencimientoRespuesta: text('dias_vencimiento_respuesta'),
+  fechaLimiteRevision: text('fecha_limite_revision'),
+  diasVencimientoRevision: text('dias_vencimiento_revision'),
+  rechazado: text('rechazado'),
+  recomendacion: text('recomendacion'),
+  comentariosEnvio: text('comentarios_envio'),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+});
+
 export type InsertJournalsContent = typeof journalsContent.$inferInsert;
 export type SelectJournalsContent = typeof journalsContent.$inferSelect;
 
@@ -151,4 +200,10 @@ export type InsertAuthGroup = typeof authGroup.$inferInsert;
 
 export type SelectAuthUser = typeof authUser.$inferSelect;
 export type InsertAuthUser = typeof authUser.$inferInsert;
+
+export type InsertAnalesReviews = typeof analesReviews.$inferInsert;
+export type SelectAnalesReviews = typeof analesReviews.$inferSelect;
+
+export type SelectArticlesAnales = typeof articlesAnales.$inferSelect;
+export type InsertArticlesAnales = typeof articlesAnales.$inferInsert;
   
