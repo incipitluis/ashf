@@ -131,7 +131,7 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
       )}
 
       {scrapedData.length > 0 && (
-       <div className="mt-6">
+       <div className="my-6">
         <Button onClick={() => handleGetReviewers({journal, allArticleIds})} disabled={isReviewersLoading}> {isReviewersLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get Reviewers'}</Button>
         </div>
       )}
@@ -139,6 +139,11 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
       
       {reviewsFiltered.length > 0 ? (
         <>
+        {noReviewersIds.length > 0 && (
+          <div className="mt-6">
+            <p className="text-sm text-red-500/60">Algunos Id de Artículo no se corresponden con revisores del excel, chequea la consola</p>
+          </div>
+        )}
         <div className="flex justify-end items-center mb-4 gap-8">
         <p className="text-sm text-gray-500">Total de reviews: {reviewsFiltered.length}</p>
             <button

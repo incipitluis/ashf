@@ -14,9 +14,13 @@ const StateSelector: React.FC<StateSelectorProps> = ({ onSelectState }) => {
   };
 
   return (
-    <div>
-      <label htmlFor="state-selector">Selecciona estado: </label>
-      <select id="state-selector" value={selectedState} onChange={handleChange}>
+    <div className="flex flex-col space-y-2">
+      <select 
+        id="state-selector" 
+        value={selectedState} 
+        onChange={handleChange}
+        className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+      >
         <option value="Aceptado">Aceptado</option>
         <option value="Rechazado">Rechazado</option>
       </select>
