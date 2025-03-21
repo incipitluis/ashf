@@ -5,14 +5,19 @@ import { analesReviews, articlesAnales, lasTorresDeLuccaReviews, rPubReviews, Se
 import { sql, and, eq, isNotNull } from "drizzle-orm"
 
 
-export async function getRevisores(year: string){
-  const data = await db.select().from(analesReviews)
-    .where(and(sql`"fecha_completada"::text ILIKE '%${year}%'`, isNotNull(analesReviews.fechaCompletada)))
+export async function getRevisores(year: string, journal: string){
+  const table = journal === 'anales' ? analesReviews
+   : journal === 'rpub' ? rPubReviews
+   : lasTorresDeLuccaReviews;
+
+  const data = await db.select().from(table)
+    .where(and(
+      sql`${table.fechaCompletada}::text ILIKE ${'%' + year + '%'}`, 
+      isNotNull(table.fechaCompletada)
+    ))
     
-  // Crear un objeto para rastrear reviews ya procesadas
   const uniqueReviews = new Map();
   
-  // Filtrar para mantener solo un registro por cada combinación de idEnvio y revisorUsername
   const filteredData = data.filter((review) => {
     const key = `${review.idEnvio}-${review.revisorUsername}`;
     
@@ -34,32 +39,6 @@ export async function getTotalArticles(){
   return data
 }
 
-
-export async function getRevisoresByArticlePublishedAndYear(state: string, year: string) {
- 
-  let filteredArticles = []
-  if (state === "Else"){
-    filteredArticles = await db.select().from(articlesAnales)
-      .where(sql`estado != 'Publicado' AND estado != 'Rechazado'`);
-  } else {
-    filteredArticles = await db.select().from(articlesAnales)
-      .where(sql`estado = ${state}`);
-  }
-  
-
-  const filteredArticleIds = filteredArticles.map(article => article.idEnvio);
-  
-  // Obtenemos los revisores que revisaron artículos publicados en el año especificado
-  const data = await db.select().from(analesReviews)
-    .where(sql`EXTRACT(YEAR FROM "fecha_asignada"::timestamp) = ${year} AND id_envio IN (${filteredArticleIds.join(',')})`);
-  
-  // Aplicamos el mismo filtro que se usa en las otras funciones
-  const filteredData = data.filter((review, index, self) => 
-    self.filter(r => r.idEnvio === review.idEnvio && r.revisorUsername === review.revisorUsername).length > 1
-  );
-  
-  return filteredData;
-}
 
 
 export const getReviewersByArticleIds = async (articleIds: string[], journal: string) => {

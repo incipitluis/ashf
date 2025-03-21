@@ -1,7 +1,6 @@
 "use client"
 
-import { SelectAnalesReviews, SelectArticlesAnales } from "@/db/schema"
-import StateSelector from "./state-selector"
+import { SelectAnalesReviews } from "@/db/schema"
 import { useState } from "react";
 import YearSelector from "./year-selector";
 import { JournalSelector } from "./journal-selector";
@@ -10,24 +9,18 @@ import { Loader2 } from "lucide-react";
 import { ModeSelector } from "./mode-selector";
 
 export default function ReviewsPanel() {
-  const [selectedState, setSelectedState] = useState<string>('Aceptado');
   const [selectedYear, setSelectedYear] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isReviewersLoading, setIsReviewersLoading] = useState<boolean>(false);
   const [scrapedData, setScrapedData] = useState<Array<{articleIds?: string[]}>>([]);
   const [mode, setMode] = useState<string>('solicitud');
   const [scrapYear, setScrapYear] = useState<string>('');
-  const [reviews, setReviews] = useState<SelectAnalesReviews[]>([]);
-  const [filteredArticles, setFilteredArticles] = useState<SelectArticlesAnales[]>([]);
   const [reviewsFiltered, setReviewsFiltered] = useState<SelectAnalesReviews[]>([]);
   const [noReviewersIds, setNoReviewersIds] = useState<string[]>([]);
   const [journal, setJournal] = useState<string>('anales');
   const years = Array.from({length: 2030 - 2015}, (_, i) => (2015 + i).toString());
   
   
-  const handleStateChange = (state: string) => {
-    setSelectedState(state);
-  };
 
   const handleYearChange = (year: string) => {
     setSelectedYear(year);
@@ -71,7 +64,20 @@ export default function ReviewsPanel() {
     );
     
   
-   const handleGetReviewers = async ({journal, allArticleIds}: {journal: string, allArticleIds: string[]}) => {
+const handleGetReviewersByDate = async ({journal, year}: {journal: string, year: string}) => {
+  setIsReviewersLoading(true);
+  try {
+    const response = await fetch(`/api/fecyt/solicitude?journal=${journal}&year=${year}`);
+    const reviewers = await response.json();
+    setReviewsFiltered(reviewers);
+  } catch (error) {
+    console.error('Error getting reviewers:', error);
+  } finally {
+    setIsReviewersLoading(false);
+  }
+}
+
+  const handleGetReviewersByArticleIds = async ({journal, allArticleIds}: {journal: string, allArticleIds: string[]}) => {
     setIsReviewersLoading(true);
     try {
       const response = await fetch(`/api/fecyt?journal=${journal}&articleIds=${allArticleIds.join(',')}`);
@@ -85,6 +91,7 @@ export default function ReviewsPanel() {
     }
    }
 
+
   return (
     <div className="bg-white rounded-lg shadow-md p-24 max-w-5xl mx-auto">
       <h1 className="text-3xl font-bold text-gray-800 mb-6 border-b pb-3">Reviews Dashboard</h1>
@@ -97,11 +104,15 @@ export default function ReviewsPanel() {
             <JournalSelector journal={journal} setJournal={setJournal} />
         </div>
         <div className="w-full md:w-1/2">
-          <StateSelector onSelectState={handleStateChange} />
-        </div>
-        <div className="w-full md:w-1/2">
           <YearSelector years={years} onYearChange={handleYearChange} />
         </div>
+        <Button
+          className=""
+          onClick={() => handleGetReviewersByDate({journal, year: selectedYear})}
+          disabled={isReviewersLoading}
+        >
+          {isReviewersLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get Reviewers'}
+        </Button>
       </div>
       )}
 
@@ -129,7 +140,7 @@ export default function ReviewsPanel() {
 
       {scrapedData.length > 0 && (
        <div className="my-6">
-        <Button onClick={() => handleGetReviewers({journal, allArticleIds})} disabled={isReviewersLoading}> {isReviewersLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get Reviewers'}</Button>
+        <Button onClick={() => handleGetReviewersByArticleIds({journal, allArticleIds})} disabled={isReviewersLoading}> {isReviewersLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get Reviewers'}</Button>
         </div>
       )}
       
@@ -147,7 +158,7 @@ export default function ReviewsPanel() {
               className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-200 flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
               onClick={() => {
                 const reviewDetails = reviewsFiltered.map((review, index) => 
-                  `${index + 1}) Revisor: ${review.revisorNombre} ${review.revisorApellidos}, Título Envío: ${review.tituloEnvio}, ID Envío: ${review.idEnvio}\nFecha Envío: ${review.fechaCompletada?.split(' ')[0]}, Recomendación: ${review.recomendacion}, Estado del artículo: ${selectedState}`
+                  `${index + 1}) Revisor: ${review.revisorNombre} ${review.revisorApellidos}, Título Envío: ${review.tituloEnvio}, ID Envío: ${review.idEnvio}\nFecha Envío: ${review.fechaCompletada?.split(' ')[0]}, Recomendación: ${review.recomendacion}`
                 ).join('\n');
                 navigator.clipboard.writeText(reviewDetails);
                 alert('Gracias por usar el servicio postpunk de extracción de estadísticas de ASHF');
