@@ -7,7 +7,7 @@ import YearSelector from "./year-selector";
 import { getRevisores } from "../data";
 
 export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales[] | undefined}){
-  const [selectedState, setSelectedState] = useState<string>('Publicado');
+  const [selectedState, setSelectedState] = useState<string>('Aceptado');
   const [selectedYear, setSelectedYear] = useState<string>('2024');
   const [reviews, setReviews] = useState<SelectAnalesReviews[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<SelectArticlesAnales[]>([]);
