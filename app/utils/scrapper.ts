@@ -56,7 +56,7 @@ export async function scrapJournalIssues({url, year}: {url: string, year: string
       }
       
       // Check if the href matches the expected pattern
-      if (href && href.includes('https://revistas.ucm.es/index.php/ASHF/issue/view/')) {
+      if (href && href.includes('https://revistas.ucm.es/index.php/') && href.includes('/issue/view/')) {
       
         
         // Extract the identifier from the URL
