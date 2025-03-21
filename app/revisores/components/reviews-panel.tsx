@@ -9,16 +9,21 @@ import { JournalSelector } from "./journal-selector";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { ModeSelector } from "./mode-selector";
+
+
+
 export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales[] | undefined}){
   const [selectedState, setSelectedState] = useState<string>('Aceptado');
   const [selectedYear, setSelectedYear] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isReviewersLoading, setIsReviewersLoading] = useState<boolean>(false);
   const [scrapedData, setScrapedData] = useState<any[]>([]);
   const [mode, setMode] = useState<string>('solicitud');
   const [scrapYear, setScrapYear] = useState<string>('');
   const [reviews, setReviews] = useState<SelectAnalesReviews[]>([]);
   const [filteredArticles, setFilteredArticles] = useState<SelectArticlesAnales[]>([]);
   const [reviewsFiltered, setReviewsFiltered] = useState<SelectAnalesReviews[]>([]);
+  const [noReviewersIds, setNoReviewersIds] = useState<string[]>([]);
   const [journal, setJournal] = useState<string>('anales');
   const years = Array.from({length: 2030 - 2015}, (_, i) => (2015 + i).toString());
   
@@ -36,7 +41,6 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
     console.log(year);
   };
 
- 
   
   const handleScrapJournal = async ({journal, year}: {journal: string, year: string}) => {
     if (!journal) return;
@@ -61,6 +65,7 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
       alert('Error scraping journal. Check console for details.');
     } finally {
       setIsLoading(false);
+      console.log(scrapedData);
     }
   };
 
@@ -68,7 +73,20 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
       issue.articleIds ? issue.articleIds : []
     );
     
-   
+  
+   const handleGetReviewers = async ({journal, allArticleIds}: {journal: string, allArticleIds: string[]}) => {
+    setIsReviewersLoading(true);
+    try {
+      const response = await fetch(`/api/fecyt?journal=${journal}&articleIds=${allArticleIds.join(',')}`);
+      const reviewers = await response.json();
+      setReviewsFiltered(reviewers.reviewers);
+      setNoReviewersIds(reviewers.noReviewersIds);
+    } catch (error) {
+      console.error('Error getting reviewers:', error);
+    } finally {
+      setIsReviewersLoading(false);
+    }
+   }
 
   return (
     <div className="bg-white rounded-lg shadow-md p-24 max-w-5xl mx-auto">
@@ -114,12 +132,7 @@ export default function ReviewsPanel({articles}: {articles: SelectArticlesAnales
 
       {scrapedData.length > 0 && (
        <div className="mt-6">
-         {scrapedData.map((issue, index) => (
-          <div className="flex flex-row gap-2" key={index}>
-            <p className="text-sm text-gray-800 whitespace-nowrap">{issue.Nombre}:</p>
-            <p className="text-sm text-gray-800">{issue.articleIds.join(', ')}</p>
-          </div>
-         ))}
+        <Button onClick={() => handleGetReviewers({journal, allArticleIds})} disabled={isReviewersLoading}> {isReviewersLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get Reviewers'}</Button>
         </div>
       )}
       

@@ -1,8 +1,8 @@
 "use server"
 
 import { db } from "@/db/drizzle"
-import { analesReviews, articlesAnales } from "@/db/schema"
-import { sql, and, isNotNull } from "drizzle-orm"
+import { analesReviews, articlesAnales, lasTorresDeLuccaReviews, rPubReviews, SelectAnalesReviews } from "@/db/schema"
+import { sql, and, eq, isNotNull } from "drizzle-orm"
 
 
 export async function getRevisores(year: string){
@@ -59,4 +59,47 @@ export async function getRevisoresByArticlePublishedAndYear(state: string, year:
   );
   
   return filteredData;
+}
+
+
+export const getReviewersByArticleIds = async (articleIds: string[], journal: string) => {
+
+  const table = journal === 'anales' ? analesReviews
+   : journal === 'rpub' ? rPubReviews
+   : lasTorresDeLuccaReviews;
+
+  const result = [] as SelectAnalesReviews[];
+  const noReviewersIds: string[] = [];
+  // Mapa para controlar combinaciones únicas de idEnvio-revisorUsername
+  const uniqueReviewers = new Map<string, boolean>();
+
+  for (const articleId of articleIds) {
+    try {
+      
+      const reviewers = await db.select().from(table)
+        .where(eq(table.idEnvio, articleId));
+      
+      if (reviewers.length > 0) {
+        // Filtrar duplicados antes de añadir al resultado
+        reviewers.forEach(reviewer => {
+          const key = `${reviewer.idEnvio}-${reviewer.revisorUsername}`;
+          if (!uniqueReviewers.has(key)) {
+            uniqueReviewers.set(key, true);
+            result.push(reviewer);
+          }
+        });
+      } else {
+        noReviewersIds.push(articleId);
+      }
+    } catch (error) {
+      console.error('Error getting reviewers:', error);
+      noReviewersIds.push(articleId);
+    }
+  }
+
+  console.log("Artículos sin revisores:", noReviewersIds);
+  return { 
+    reviewers: result, 
+    noReviewersIds 
+  };
 }
