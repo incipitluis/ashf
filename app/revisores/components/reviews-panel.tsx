@@ -7,12 +7,13 @@ import { JournalSelector } from "./journal-selector";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import { ModeSelector } from "./mode-selector";
+import { Issue } from "@/app/utils/scrapper";
 
 export default function ReviewsPanel() {
   const [selectedYear, setSelectedYear] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isReviewersLoading, setIsReviewersLoading] = useState<boolean>(false);
-  const [scrapedData, setScrapedData] = useState<Array<{articleIds?: string[]}>>([]);
+  const [scrapedData, setScrapedData] = useState<Issue[]>([]);
   const [mode, setMode] = useState<string>('solicitud');
   const [scrapYear, setScrapYear] = useState<string>('');
   const [reviewsFiltered, setReviewsFiltered] = useState<SelectAnalesReviews[]>([]);
@@ -60,7 +61,7 @@ export default function ReviewsPanel() {
   };
 
     const allArticleIds = scrapedData.flatMap(issue => 
-      issue.articleIds ? issue.articleIds : []
+      issue.articleIds || []
     );
     
   
@@ -140,7 +141,42 @@ const handleGetReviewersByDate = async ({journal, year}: {journal: string, year:
 
       {scrapedData.length > 0 && (
        <div className="my-6">
-        <Button onClick={() => handleGetReviewersByArticleIds({journal, allArticleIds})} disabled={isReviewersLoading}> {isReviewersLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get Reviewers'}</Button>
+       <div className="flex flex-col gap-2 mb-2 overflow-x-auto">
+          <h4>Resultado del scrapping</h4>
+         {scrapedData.map((issue, index) => (
+          <div key={index} className="flex flex-col gap-2 mb-2">
+            <p>{issue.Nombre}</p>
+            <div className="flex flex-row gap-2">
+              {issue.articleIds.map((articleId, index) => (
+                <p key={index}>{articleId}, </p>
+              ))}
+            </div>
+          </div>
+         ))}
+       </div>
+       <div>
+
+       </div>
+        <div className="flex gap-4">
+          <Button onClick={() => handleGetReviewersByArticleIds({journal, allArticleIds})} disabled={isReviewersLoading}> 
+            {isReviewersLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Get Reviewers'}
+          </Button>
+          <Button onClick={() => {
+            const csvContent = [
+              'Issue,Ids',
+              ...scrapedData.map(issue => 
+                `"${issue.Nombre}",${issue.articleIds.join(';')}`
+              )
+            ].join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `scraped_data_${journal}_${scrapYear}.csv`;
+            link.click();
+          }}>
+            Download CSV
+          </Button>
+        </div>
         </div>
       )}
       

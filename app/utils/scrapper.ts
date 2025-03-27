@@ -181,3 +181,8 @@ export async function scrapJournalArticles(url: string): Promise<{ Nombre: strin
     throw new Error('Failed to scrape journal articles');
   }
 }   
+
+export type Issue = {
+  Nombre: string,
+  articleIds: string[]
+}
