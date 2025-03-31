@@ -1,0 +1,1616 @@
+{
+  "id": "45109eab-8abe-4a23-ad21-93bf0e5eee40",
+  "prevId": "64e255d4-5f56-4ba5-b4b5-b5fe81e46d80",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.anales_reviews": {
+      "name": "anales_reviews",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "fase": {
+          "name": "fase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ronda": {
+          "name": "ronda",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "titulo_envio": {
+          "name": "titulo_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_envio": {
+          "name": "id_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_username": {
+          "name": "revisor_username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_nombre": {
+          "name": "revisor_nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_apellidos": {
+          "name": "revisor_apellidos",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "identificador_orcid": {
+          "name": "identificador_orcid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pais": {
+          "name": "pais",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "afiliacion": {
+          "name": "afiliacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "correo_electronico": {
+          "name": "correo_electronico",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intereses_revision": {
+          "name": "intereses_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_asignada": {
+          "name": "fecha_asignada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_notificada": {
+          "name": "fecha_notificada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_confirmada": {
+          "name": "fecha_confirmada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_completada": {
+          "name": "fecha_completada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sin_considerar": {
+          "name": "sin_considerar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_recordatorio": {
+          "name": "fecha_recordatorio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_limite_contestacion": {
+          "name": "fecha_limite_contestacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dias_vencimiento_respuesta": {
+          "name": "dias_vencimiento_respuesta",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_limite_revision": {
+          "name": "fecha_limite_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dias_vencimiento_revision": {
+          "name": "dias_vencimiento_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rechazado": {
+          "name": "rechazado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recomendacion": {
+          "name": "recomendacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "comentarios_envio": {
+          "name": "comentarios_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.articles_anales": {
+      "name": "articles_anales",
+      "schema": "",
+      "columns": {
+        "id_envio": {
+          "name": "id_envio",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resumen": {
+          "name": "resumen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nombre_autor_1": {
+          "name": "nombre_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "apellidos_autor_1": {
+          "name": "apellidos_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "correo_electronico_autor_1": {
+          "name": "correo_electronico_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "titulo_seccion": {
+          "name": "titulo_seccion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "idioma": {
+          "name": "idioma",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "asuntos": {
+          "name": "asuntos",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "estado": {
+          "name": "estado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "doi": {
+          "name": "doi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_envio": {
+          "name": "fecha_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ultima_modificacion": {
+          "name": "ultima_modificacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.articulos": {
+      "name": "articulos",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "autor": {
+          "name": "autor",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "year": {
+          "name": "year",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "estado": {
+          "name": "estado",
+          "type": "estado_libro",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resumen": {
+          "name": "resumen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.auth_group": {
+      "name": "auth_group",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.auth_group_permissions": {
+      "name": "auth_group_permissions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "group_id": {
+          "name": "group_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permission_id": {
+          "name": "permission_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.auth_permission": {
+      "name": "auth_permission",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content_type_id": {
+          "name": "content_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "codename": {
+          "name": "codename",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.auth_user": {
+      "name": "auth_user",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(128)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "last_login": {
+          "name": "last_login",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_superuser": {
+          "name": "is_superuser",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "first_name": {
+          "name": "first_name",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "last_name": {
+          "name": "last_name",
+          "type": "varchar(150)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(254)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_staff": {
+          "name": "is_staff",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "date_joined": {
+          "name": "date_joined",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.auth_user_groups": {
+      "name": "auth_user_groups",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "group_id": {
+          "name": "group_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.auth_user_user_permissions": {
+      "name": "auth_user_user_permissions",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "permission_id": {
+          "name": "permission_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.blog": {
+      "name": "blog",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "important_fragment": {
+          "name": "important_fragment",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "keywords": {
+          "name": "keywords",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "author": {
+          "name": "author",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "likes": {
+          "name": "likes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "default": 0
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "image": {
+          "name": "image",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "papers_content_id": {
+          "name": "papers_content_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "journals_content_id": {
+          "name": "journals_content_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "type": {
+          "name": "type",
+          "type": "type_blog",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "blog_papers_content_id_papers_content_id_fk": {
+          "name": "blog_papers_content_id_papers_content_id_fk",
+          "tableFrom": "blog",
+          "tableTo": "papers_content",
+          "columnsFrom": [
+            "papers_content_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "blog_journals_content_id_journals_content_id_fk": {
+          "name": "blog_journals_content_id_journals_content_id_fk",
+          "tableFrom": "blog",
+          "tableTo": "journals_content",
+          "columnsFrom": [
+            "journals_content_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.data_articles": {
+      "name": "data_articles",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "authors": {
+          "name": "authors",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "numberofauthors": {
+          "name": "numberofauthors",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "original": {
+          "name": "original",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "doi": {
+          "name": "doi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "filiacion": {
+          "name": "filiacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "miembroconsejo": {
+          "name": "miembroconsejo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "extranjero": {
+          "name": "extranjero",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "genero": {
+          "name": "genero",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "journal": {
+          "name": "journal",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.django_admin_log": {
+      "name": "django_admin_log",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "action_time": {
+          "name": "action_time",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "object_id": {
+          "name": "object_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "object_repr": {
+          "name": "object_repr",
+          "type": "varchar(200)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "action_flag": {
+          "name": "action_flag",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "change_message": {
+          "name": "change_message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content_type_id": {
+          "name": "content_type_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.django_content_type": {
+      "name": "django_content_type",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "app_label": {
+          "name": "app_label",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "model": {
+          "name": "model",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.django_migrations": {
+      "name": "django_migrations",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "app": {
+          "name": "app",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "applied": {
+          "name": "applied",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.django_session": {
+      "name": "django_session",
+      "schema": "",
+      "columns": {
+        "session_key": {
+          "name": "session_key",
+          "type": "varchar(40)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "session_data": {
+          "name": "session_data",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "expire_date": {
+          "name": "expire_date",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.journals_content": {
+      "name": "journals_content",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "journal_volume": {
+          "name": "journal_volume",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "journal_number": {
+          "name": "journal_number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "journal_year": {
+          "name": "journal_year",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.las_torres_de_lucca_articles": {
+      "name": "las_torres_de_lucca_articles",
+      "schema": "",
+      "columns": {
+        "id_envio": {
+          "name": "id_envio",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resumen": {
+          "name": "resumen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nombre_autor_1": {
+          "name": "nombre_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "apellidos_autor_1": {
+          "name": "apellidos_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "correo_electronico_autor_1": {
+          "name": "correo_electronico_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "titulo_seccion": {
+          "name": "titulo_seccion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "idioma": {
+          "name": "idioma",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "asuntos": {
+          "name": "asuntos",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "estado": {
+          "name": "estado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "doi": {
+          "name": "doi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_envio": {
+          "name": "fecha_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ultima_modificacion": {
+          "name": "ultima_modificacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.las_torres_de_lucca_reviews": {
+      "name": "las_torres_de_lucca_reviews",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "fase": {
+          "name": "fase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ronda": {
+          "name": "ronda",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "titulo_envio": {
+          "name": "titulo_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_envio": {
+          "name": "id_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_username": {
+          "name": "revisor_username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_nombre": {
+          "name": "revisor_nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_apellidos": {
+          "name": "revisor_apellidos",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "identificador_orcid": {
+          "name": "identificador_orcid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pais": {
+          "name": "pais",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "afiliacion": {
+          "name": "afiliacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "correo_electronico": {
+          "name": "correo_electronico",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intereses_revision": {
+          "name": "intereses_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_asignada": {
+          "name": "fecha_asignada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_notificada": {
+          "name": "fecha_notificada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_confirmada": {
+          "name": "fecha_confirmada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_completada": {
+          "name": "fecha_completada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sin_considerar": {
+          "name": "sin_considerar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_recordatorio": {
+          "name": "fecha_recordatorio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_limite_contestacion": {
+          "name": "fecha_limite_contestacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dias_vencimiento_respuesta": {
+          "name": "dias_vencimiento_respuesta",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_limite_revision": {
+          "name": "fecha_limite_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dias_vencimiento_revision": {
+          "name": "dias_vencimiento_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rechazado": {
+          "name": "rechazado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recomendacion": {
+          "name": "recomendacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "comentarios_envio": {
+          "name": "comentarios_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.papers_content": {
+      "name": "papers_content",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.rpub_articles": {
+      "name": "rpub_articles",
+      "schema": "",
+      "columns": {
+        "id_envio": {
+          "name": "id_envio",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "titulo": {
+          "name": "titulo",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "resumen": {
+          "name": "resumen",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "nombre_autor_1": {
+          "name": "nombre_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "apellidos_autor_1": {
+          "name": "apellidos_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "correo_electronico_autor_1": {
+          "name": "correo_electronico_autor_1",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "gender": {
+          "name": "gender",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "titulo_seccion": {
+          "name": "titulo_seccion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "idioma": {
+          "name": "idioma",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "asuntos": {
+          "name": "asuntos",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "estado": {
+          "name": "estado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "url": {
+          "name": "url",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "doi": {
+          "name": "doi",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_envio": {
+          "name": "fecha_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ultima_modificacion": {
+          "name": "ultima_modificacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.rpub_reviews": {
+      "name": "rpub_reviews",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "fase": {
+          "name": "fase",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ronda": {
+          "name": "ronda",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "titulo_envio": {
+          "name": "titulo_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id_envio": {
+          "name": "id_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_username": {
+          "name": "revisor_username",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_nombre": {
+          "name": "revisor_nombre",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "revisor_apellidos": {
+          "name": "revisor_apellidos",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "identificador_orcid": {
+          "name": "identificador_orcid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pais": {
+          "name": "pais",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "afiliacion": {
+          "name": "afiliacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "correo_electronico": {
+          "name": "correo_electronico",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "intereses_revision": {
+          "name": "intereses_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_asignada": {
+          "name": "fecha_asignada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_notificada": {
+          "name": "fecha_notificada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_confirmada": {
+          "name": "fecha_confirmada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_completada": {
+          "name": "fecha_completada",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "sin_considerar": {
+          "name": "sin_considerar",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_recordatorio": {
+          "name": "fecha_recordatorio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_limite_contestacion": {
+          "name": "fecha_limite_contestacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dias_vencimiento_respuesta": {
+          "name": "dias_vencimiento_respuesta",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fecha_limite_revision": {
+          "name": "fecha_limite_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dias_vencimiento_revision": {
+          "name": "dias_vencimiento_revision",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "rechazado": {
+          "name": "rechazado",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "recomendacion": {
+          "name": "recomendacion",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "comentarios_envio": {
+          "name": "comentarios_envio",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "public.solicitudes": {
+      "name": "solicitudes",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "revisor": {
+          "name": "revisor",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "articulo": {
+          "name": "articulo",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "year": {
+          "name": "year",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "estado": {
+          "name": "estado",
+          "type": "estado_libro",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "CURRENT_TIMESTAMP"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "enums": {
+    "public.estado_libro": {
+      "name": "estado_libro",
+      "schema": "public",
+      "values": [
+        "ACEPTADO",
+        "CERTIFICADO",
+        "RECHAZADO",
+        "PENDIENTE"
+      ]
+    },
+    "public.type_blog": {
+      "name": "type_blog",
+      "schema": "public",
+      "values": [
+        "PAPER",
+        "JOURNAL",
+        "INTRO"
+      ]
+    }
+  },
+  "schemas": {},
+  "sequences": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

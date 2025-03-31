@@ -281,6 +281,21 @@ export const analesReviews = pgTable('anales_reviews', {
   createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
 });
 
+export const dataArticles = pgTable('data_articles', {
+  id: uuid('id').defaultRandom().primaryKey(),
+  title: text('title'),
+  authors: text('authors'),
+  numberofauthors: text('numberofauthors'),
+  original: text('original'),
+  doi: text('doi'),
+  filiacion: text('filiacion'),
+  miembroconsejo: text('miembroconsejo'),
+  extranjero: text('extranjero'),
+  genero: text('genero'),
+  journal: text('journal'),
+  createdAt: text('created_at').default(sql`CURRENT_TIMESTAMP`),
+});
+
 export type InsertJournalsContent = typeof journalsContent.$inferInsert;
 export type SelectJournalsContent = typeof journalsContent.$inferSelect;
 
